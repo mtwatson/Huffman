@@ -23,3 +23,26 @@ pub fn word_frequencies(lines: &Vec<String>) -> HashMap<String, u64> {
             },
         )
 }
+
+pub fn char_frequencies(lines: &Vec<String>) -> HashMap<char, u64> {
+    lines
+        .par_iter()
+        .fold(
+            || HashMap::new(),
+            |mut freqs: HashMap<_, _>, line: &String| {
+                for ch in line.chars() {
+                    *freqs.entry(ch).or_insert(0) += 1;
+                }
+                freqs
+            },
+        )
+        .reduce(
+            || HashMap::new(),
+            |mut freqs1, freqs2| {
+                freqs2
+                    .into_iter()
+                    .for_each(|(ch, n)| *freqs1.entry(ch).or_insert(0) += n);
+                freqs1
+            },
+        )
+}

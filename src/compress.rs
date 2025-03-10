@@ -1,7 +1,7 @@
 use std::fs;
 use std::io::Error;
 use std::path::Path;
-use crate::frequencies::{self, word_frequencies};
+use crate::frequencies::{self, word_frequencies, char_frequencies};
 
 
 pub fn compress(in_file: &Path, out_file: &Path) -> Result<(), Error>
@@ -10,7 +10,7 @@ pub fn compress(in_file: &Path, out_file: &Path) -> Result<(), Error>
     let lines: Vec<_> = text.split('\n').map(|x| x.to_string()).collect();
     let lines_count = lines.len();
 
-    let freqs = word_frequencies(&lines);
+    let freqs = char_frequencies(&lines);
     println!("{:?}", freqs);
     // let tree = huffman::huffman_tree(&freqs);
     // Build the frequency table
