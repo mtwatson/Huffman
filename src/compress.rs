@@ -7,7 +7,7 @@ use crate::frequencies::{self, word_frequencies, char_frequencies};
 pub fn compress(in_file: &Path, out_file: &Path) -> Result<(), Error>
 {
     let text = fs::read_to_string(in_file)?;
-    let lines: Vec<_> = text.split('\n').map(|x| x.to_string()).collect();
+    let lines: Vec<_> = text.chars().map(|x| x.to_string()).collect();
     let lines_count = lines.len();
 
     let freqs = char_frequencies(&lines);

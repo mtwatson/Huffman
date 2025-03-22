@@ -51,7 +51,7 @@ pub fn char_frequencies(lines: &Vec<String>) -> HashMap<char, u64> {
 pub fn get_char_frequencies(text: &str) -> HashMap<char, u64>
 {
     // copied the important bits from compress.rs
-    let lines: Vec<_> = text.split('\n').map(|x| x.to_string()).collect();
+    let lines: Vec<_> = text.chars().map(|x| x.to_string()).collect();
     char_frequencies(&lines)
 }
 
